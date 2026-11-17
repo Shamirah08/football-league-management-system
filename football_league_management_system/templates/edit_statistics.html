@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EDIT STATISTICS</title>
+    <link rel="stylesheet" href="{% static 'statistics2.css' %}">
+</head>
+
+<body>
+
+    <div class="statistics_container">
+
+        <h1>EDIT STATISTICS DETAILS</h1>
+
+        <form method="POST">
+            {% csrf_token %}
+
+            <label for="club">CLUB</label><br>
+            <select name="club" id="club">
+                <option value="">Select Club</option>
+                {% for club in clubs %}
+                <option value="{{ club.id }}">{{ club.club_name }}</option>
+                {% endfor %}
+            </select>
+            <br><br>
+
+            <label for="season">SEASON</label><br>
+            <select name="season" id="season">
+                <option value="">Select Season</option>
+                {% for season in seasons %}
+                <option value="{{ season.id }}">{{ season }}</option>
+                {% endfor %}
+            </select>
+            <br><br>
+
+            <label for="result">RESULT</label><br>
+            <select name="result" id="result">
+                <option value="">Select Result</option>
+                {% for result in results %}
+                <option value="{{ result.id }}">{{ result }}</option>
+                {% endfor %}
+            </select>
+            <br><br>
+
+            <label for="points">POINTS</label><br>
+            <input type="number" name="points" id="points" value="{{ statistic.points }}" min="0" required>
+            <br><br>
+
+            <label for="yellow_cards">YELLOW CARD</label><br>
+            <input type="number" name="yellow_cards" id="yellow_cards" value="{{ statistic.yellow_cards }}" min="0"
+                required>
+            <br><br>
+
+            <label for="red_cards">RED CARD</label><br>
+            <input type="number" name="red_cards" id="red_cards" value="{{ statistic.red_cards }}" min="0" required>
+            <br><br>
+
+            <label for="possession">POSSESSION</label><br>
+            <input type="text" name="possession" id="possession" value="{{ statistic.possession }}" required>
+            <br><br>
+
+            <button type="submit">UPDATE STATISTICS</button>
+
+        </form>
+
+        <br>
+
+        <a href="{% url 'statistics' %}">CANCEL</a>
+
+    </div>
+
+    <script>
+        document.getElementById("club").value = "{{ statistic.club_id|default_if_none:'' }}";
+        document.getElementById("season").value = "{{ statistic.season_id|default_if_none:'' }}";
+        document.getElementById("result").value = "{{ statistic.result_id|default_if_none:'' }}";
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,65 @@
+body {
+    background-color: beige;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+h1 {
+    text-align: center;
+    color: black;
+}
+
+
+.club_container {
+    background-color: white;
+    border: 5px black solid;
+    width: 800px;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+form {
+    margin: 30px;
+    font-weight: bold;
+}
+
+input {
+    height: 40px;
+    width: 80%;
+    border-radius: 5px;
+    height: 40px;
+    border: 2px black solid;
+
+
+}
+
+label {
+    color: black;
+    font-weight: bold;
+    margin-bottom: 6px;
+    padding: 5px;
+}
+
+button {
+    padding: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    background-color: aquamarine;
+
+}
+
+table {
+    margin: auto;
+    width: 600px;
+}
+
+th {
+    text-align: left;
+    background-color: aquamarine;
+}
+
+table,
+th,
+td {
+    border: 1px black solid;
+    border-collapse: collapse;
+}

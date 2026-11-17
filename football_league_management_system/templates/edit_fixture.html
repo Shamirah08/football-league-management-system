@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Fixture</title>
+</head>
+
+<body>
+
+    <h1>EDIT FIXTURE DETAILS</h1>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <label>HOME CLUB</label><br>
+        <input type="text" name="home_club" value="{{ fixture.home_club }}" required><br><br>
+
+        <label>AWAY CLUB</label><br>
+        <input type="text" name="away_club" value="{{ fixture.away_club }}" required><br><br>
+
+        <label>STADIUM</label><br>
+        <input type="text" name="stadium" value="{{ fixture.stadium }}" required><br><br>
+
+        <label>MATCH TIME</label><br>
+        <input type="time" name="Match_time" value="{{ fixture.Match_time|time:'H:i' }}" required><br><br>
+
+        <label>MATCH DATE</label><br>
+        <input type="date" name="match_date" value="{{ fixture.match_date|date:'Y-m-d' }}"><br><br>
+
+        <label>STATUS</label><br>
+        <input type="text" name="status" value="{{ fixture.status }}" required><br><br>
+
+        <button type="submit">UPDATE FIXTURE</button>
+
+    </form>
+
+    <br>
+    <a href="{% url 'matchfixture' %}">BACK TO FIXTURES</a>
+
+</body>
+
+</html>

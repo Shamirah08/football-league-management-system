@@ -1,0 +1,65 @@
+{% extends './base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'season2.css' %}">
+{% endblock extra_css %}
+
+{% block content %}
+
+<div class="season_container">
+    <div>
+        <h1>SEASON2</h1>
+    </div>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <label for="s_date">START DATE</label><br>
+        <input type="date" name="start_date" required><br><br>
+
+        <label for="e_date">END DATE</label><br>
+        <input type="date" name="end_date" required><br><br>
+
+        <button type="submit">Save Season</button>
+    </form>
+
+    <h1>SEASONS TABLE</h1>
+
+    <div class="wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th>Season_Name</th>
+                    <th>Start_Date</th>
+                    <th>End_Date</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for season in seasons %}
+                <tr>
+                    <td>{{ season.start_date|date:"Y" }}/{{ season.end_date|date:"y" }}</td>
+                    <td>{{ season.start_date }}</td>
+                    <td>{{ season.end_date }}</td>
+                    <td>
+                        {% if season.end_date < today %} Completed {% else %} Ongoing {% endif %} </td>
+                    <td>
+                        <a href="{% url 'edit_season' season.id %}">Edit</a> |
+                        <a href="{% url 'delete_season' season.id %}">Delete</a>
+                    </td>
+                </tr>
+
+                {% empty %}
+                <tr>
+                    <td colspan="5">No seasons registered yet.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock content %}

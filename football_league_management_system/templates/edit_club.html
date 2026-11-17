@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Football Club</title>
+</head>
+
+<body>
+
+    <h1>EDIT FOOTBALL CLUB</h1>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <label>CLUB NAME</label><br>
+        <input type="text" name="club_name" value="{{ club.club_name }}" required><br><br>
+
+        <label>NICK NAME</label><br>
+        <input type="text" name="nick_name" value="{{ club.nick_name }}" required><br><br>
+
+        <label>STADIUM</label><br>
+        <input type="text" name="stadium" value="{{ club.stadium }}" required><br><br>
+
+        <label>CAPACITY</label><br>
+        <input type="number" name="capacity" value="{{ club.capacity }}" required><br><br>
+
+        <label>MANAGER</label><br>
+        <input type="text" name="manager" value="{{ club.manager }}" required><br><br>
+
+        <button type="submit">UPDATE CLUB</button>
+    </form>
+
+</body>
+
+</html>

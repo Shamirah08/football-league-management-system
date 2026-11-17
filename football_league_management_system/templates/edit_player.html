@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Player</title>
+</head>
+
+<body>
+
+    <h1>EDIT PLAYER DETAILS</h1>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <label>FIRST NAME</label><br>
+        <input type="text" name="first_name" value="{{ player.first_name }}" required><br><br>
+
+        <label>LAST NAME</label><br>
+        <input type="text" name="last_name" value="{{ player.last_name }}" required><br><br>
+        <label>GENDER</label><br>
+        <select name="gender" required>
+            <option value="M">Male</option>
+            <option value="F">Female</option>
+        </select><br><br>
+
+        <label>POSITION</label><br>
+        <input type="text" name="position" value="{{ player.position }}" required><br><br>
+
+        <label>SHIRT NUMBER</label><br>
+        <input type="number" name="shirt_number" value="{{ player.shirt_number }}" required><br><br>
+
+        <label>DATE OF BIRTH</label><br>
+        <input type="date" name="birth_year" value="{{ player.birth_year|date:'Y-m-d' }}" required><br><br>
+
+        <button type="submit">UPDATE PLAYER</button>
+    </form>
+
+    <a href="{% url 'player' %}">CANCEL</a>
+
+</body>
+
+</html>

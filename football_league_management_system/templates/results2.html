@@ -1,0 +1,99 @@
+{% extends './base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'results2.css' %}">
+{% endblock extra_css %}
+
+{% block content %}
+
+<div class="results_container">
+
+    <div>
+        <h1>RESULTS2</h1>
+    </div>
+
+    <!-- RESULTS FORM -->
+
+    <form method="POST" action="{% url 'results' %}">
+        {% csrf_token %}
+
+        <label for="fixture">FIXTURE</label><br>
+        <select name="fixture" id="fixture" required>
+            <option value="">Select Fixture</option>
+            {% for fixture in fixtures %}
+            <option value="{{ fixture.id }}">
+                {{ fixture.home_club }} vs {{ fixture.away_club }}
+            </option>
+            {% endfor %}
+        </select>
+        <br><br>
+
+        <label for="season">SEASON</label><br>
+        <select name="season" id="season" required>
+            <option value="">Select Season</option>
+            {% for season in seasons %}
+            <option value="{{ season.id }}">
+                {{ season.start_date }} to {{ season.end_date }}
+            </option>
+            {% endfor %}
+        </select>
+        <br><br>
+
+        <label for="goals_scored">GOALS SCORED</label><br>
+        <input type="number" id="goals_scored" name="goals_scored" placeholder="Enter Goals Scored" min="0" required>
+        <br><br>
+
+        <label for="goals_conceded">GOALS CONCEDED</label><br>
+        <input type="number" id="goals_conceded" name="goals_conceded" placeholder="Enter Goals Conceded" min="0"
+            required>
+        <br><br>
+
+        <button type="submit">SUBMIT</button>
+
+    </form>
+
+    <!-- RESULTS TABLE -->
+
+    <h1>RESULT TABLE</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>FIXTURE</th>
+                <th>SEASON</th>
+                <th>GOALS SCORED</th>
+                <th>GOALS CONCEDED</th>
+                <th>EDIT</th>
+                <th>DELETE</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for result in results %}
+            <tr>
+                <td>{{ result.fixture }}</td>
+                <td>{{ result.season }}</td>
+                <td>{{ result.goals_scored }}</td>
+                <td>{{ result.goals_conceded }}</td>
+
+                <td>
+                    <a href="{% url 'edit_result' result.id %}">EDIT</a>
+                </td>
+
+                <td>
+                    <a href="{% url 'delete_result' result.id %}">DELETE</a>
+                </td>
+            </tr>
+
+            {% empty %}
+            <tr>
+                <td colspan="6">No results available.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+
+{% endblock content %}

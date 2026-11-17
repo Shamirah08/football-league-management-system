@@ -1,0 +1,87 @@
+{% extends './base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'matchfixture2.css' %}">
+{% endblock extra_css %}
+
+{% block content %}
+
+<div class="fixture_container">
+
+    <div>
+        <h1>MATCH FIXTURE2</h1>
+    </div>
+
+    <!-- FIXTURE REGISTRATION FORM -->
+    <form method="POST" action="">
+        {% csrf_token %}
+
+        <label for="h_club">HOME CLUB</label><br>
+        <input type="text" id="h_club" name="home_club" placeholder="Enter Home Club" required><br><br>
+
+        <label for="a_way">AWAY CLUB</label><br>
+        <input type="text" id="a_way" name="away_club" placeholder="Enter Away Club" required><br><br>
+
+        <label for="stad">STADIUM</label><br>
+        <input type="text" id="stad" name="stadium" placeholder="Enter Stadium" required><br><br>
+
+        <label for="time">MATCH TIME</label><br>
+        <input type="time" id="time" name="Match_time" required><br><br>
+
+        <label for="date">MATCH DATE</label><br>
+        <input type="date" id="date" name="match_date"><br><br>
+
+        <label for="status">STATUS</label><br>
+        <input type="text" id="status" name="status" placeholder="Enter Status" required><br><br>
+
+        <button type="submit">SUBMIT</button>
+    </form>
+
+    <!-- FIXTURES TABLE -->
+    <h1>FIXTURES TABLE</h1>
+
+    <div class="wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th>Home_Club</th>
+                    <th>Away_Club</th>
+                    <th>Stadium</th>
+                    <th>Match_Time</th>
+                    <th>Match_Date</th>
+                    <th>Score</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for fixture in fixtures %}
+                <tr>
+                    <td>{{ fixture.home_club }}</td>
+                    <td>{{ fixture.away_club }}</td>
+                    <td>{{ fixture.stadium }}</td>
+                    <td>{{ fixture.Match_time }}</td>
+                    <td>{{ fixture.match_date|default:"-" }}</td>
+                    <td>-</td>
+                    <td>{{ fixture.status }}</td>
+
+                    <td>
+                        <a href="{% url 'edit_fixture' fixture.id %}">EDIT</a> |
+                        <a href="{% url 'delete_fixture' fixture.id %}">DELETE</a>
+                    </td>
+                </tr>
+
+                {% empty %}
+                <tr>
+                    <td colspan="8">No fixtures available.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+{% endblock content %}

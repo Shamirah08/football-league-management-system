@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DELETE STATISTICS</title>
+</head>
+
+<body>
+
+    <h1>DELETE STATISTICS DETAILS</h1>
+
+    <p>Are you sure you want to delete this statistic?</p>
+
+    <p><strong>Points:</strong> {{ statistic.points }}</p>
+    <p><strong>Yellow Cards:</strong> {{ statistic.yellow_cards }}</p>
+    <p><strong>Red Cards:</strong> {{ statistic.red_cards }}</p>
+    <p><strong>Possession:</strong> {{ statistic.possession }}</p>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <button type="submit">YES, DELETE STATISTICS</button>
+    </form>
+
+    <br>
+
+    <a href="{% url 'statistics' %}">CANCEL</a>
+
+</body>
+
+</html>

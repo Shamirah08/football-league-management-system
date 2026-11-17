@@ -1,0 +1,77 @@
+{% extends './base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'statistics2.css' %}">
+{% endblock extra_css %}
+
+{% block content %}
+
+<div class="statistics_container">
+
+    <div>
+        <h1>STATISTICS2</h1>
+    </div>
+
+    <form method="POST" action="{% url 'statistics' %}">
+        {% csrf_token %}
+
+        <label for="points">POINTS</label><br>
+        <input type="number" name="points" id="points" placeholder="Enter points" min="0" required>
+        <br><br>
+
+        <label for="yellow_cards">YELLOW CARD</label><br>
+        <input type="number" name="yellow_cards" id="yellow_cards" placeholder="Enter Yellow Card" min="0" required>
+        <br><br>
+
+        <label for="red_cards">RED CARD</label><br>
+        <input type="number" name="red_cards" id="red_cards" placeholder="Enter Red Card" min="0" required>
+        <br><br>
+
+        <label for="possession">POSSESSION</label><br>
+        <input type="text" name="possession" id="possession" placeholder="Enter Possession (e.g. 56%)" required>
+        <br><br>
+
+        <button type="submit">SUBMIT</button>
+    </form>
+
+    <h1>STATISTICS TABLE</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>POINTS</th>
+                <th>YELLOW CARD</th>
+                <th>RED CARD</th>
+                <th>POSSESSION</th>
+                <th>EDIT</th>
+                <th>DELETE</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for statistic in statistics %}
+            <tr>
+                <td>{{ statistic.points }}</td>
+                <td>{{ statistic.yellow_cards }}</td>
+                <td>{{ statistic.red_cards }}</td>
+                <td>{{ statistic.possession }}</td>
+                <td>
+                    <a href="{% url 'edit_statistics' statistic.id %}">EDIT</a>
+                </td>
+                <td>
+                    <a href="{% url 'delete_statistics' statistic.id %}">DELETE</a>
+                </td>
+            </tr>
+
+            {% empty %}
+            <tr>
+                <td colspan="6">No statistics available.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+
+{% endblock content %}

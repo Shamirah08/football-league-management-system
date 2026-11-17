@@ -1,0 +1,73 @@
+{% extends './base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'club2.css' %}">
+{% endblock extra_css %}
+
+{% block content %}
+
+<div class="club_container">
+    <div>
+        <h1>FOOTBALL CLUB</h1>
+    </div>
+
+    <form action="" method="POST" id="clubForm">
+        {% csrf_token %}
+
+        <label for="">CLUB NAME</label><br>
+        <input type="text" id="cname" name="club_name" placeholder="Enter Club Name" required><br><br>
+
+        <label for="">NICK NAME</label><br>
+        <input type="text" id="nname" name="nick_name" placeholder="Enter Nick Name" required><br><br>
+
+        <label for="">STADIUM</label><br>
+        <input type="text" id="stadium" name="stadium" placeholder="Enter Stadium" required><br><br>
+
+        <label for="">CAPACITY</label><br>
+        <input type="number" id="capacity" name="capacity" placeholder="Enter Capacity" required><br><br>
+
+        <label for="">MANAGER</label><br>
+        <input type="text" id="manager" name="manager" placeholder="Enter Manager's Name" required><br><br>
+
+        <button type="submit">SUBMIT</button>
+    </form>
+
+    <h1>CLUBS TABLE</h1>
+
+    <div class="wrap">
+        <table id="clubTable">
+            <thead id="tableTitle">
+                <tr>
+                    <th>Club_Name</th>
+                    <th>Nick_Name</th>
+                    <th>Stadium</th>
+                    <th>Capacity</th>
+                    <th>Manager</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+
+            <tbody id="clubody">
+                {% for club in clubs %}
+                <tr>
+                    <td>{{ club.club_name }}</td>
+                    <td>{{ club.nick_name }}</td>
+                    <td>{{ club.stadium }}</td>
+                    <td>{{ club.capacity }}</td>
+                    <td>{{ club.manager }}</td>
+                    <td>
+                        <a href="{% url 'edit_club' club.id %}">Edit</a>
+                    </td>
+                    <td>
+                        <a href="{% url 'delete_club' club.id %}">Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock content %}

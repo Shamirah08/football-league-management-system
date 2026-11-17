@@ -1,0 +1,41 @@
+{% extends './base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'login2.css' %}">
+{% endblock extra_css %}
+
+{% block content %}
+
+<div class="container">
+
+    <div>
+        <h2>
+            <img src="{% static 'logo.png' %}" width="200" alt="FLMS Logo">
+        </h2>
+
+        <h1>FOOTBALL LEAGUE MANAGEMENT SYSTEM</h1>
+    </div>
+
+    <form method="POST" action="{% url 'login' %}">
+        {% csrf_token %}
+
+        <label for="uname">USER NAME</label><br>
+        <input type="text" name="username" id="uname" placeholder="Enter username" required>
+        <br><br>
+
+        <label for="pwd">PASSWORD</label><br>
+        <input type="password" name="password" id="pwd" placeholder="Enter password" required>
+        <br><br>
+
+        {% if error %}
+        <p style="color: red;">{{ error }}</p>
+        {% endif %}
+
+        <button type="submit">Submit</button>
+
+    </form>
+
+</div>
+
+{% endblock content %}

@@ -1,0 +1,57 @@
+body {
+    font-family: 'Times New Roman', Times, serif;
+    background-color: beige;
+}
+
+h1 {
+    text-align: center;
+
+}
+
+.results_container {
+    border: 5px black solid;
+    background-color: white;
+    width: 800px;
+    height: auto;
+    padding: 5px;
+    border-radius: 2px;
+}
+
+input {
+    border: 2px black solid;
+    border-radius: 5px;
+    width: 80%;
+    height: 40px;
+}
+
+form {
+    margin: 30px;
+    font-weight: bold;
+}
+
+label {
+    font-weight: bold;
+}
+
+button {
+    background-color: cyan;
+    border: 2px solid black;
+    border-radius: 3px;
+}
+
+table {
+    width: 400px;
+    margin: auto;
+}
+
+th {
+
+    background-color: aquamarine;
+}
+
+table,
+th,
+td {
+    border: 1px black solid;
+    border-collapse: collapse;
+}

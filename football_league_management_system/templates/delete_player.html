@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Delete Player</title>
+</head>
+
+<body>
+
+    <h1>DELETE PLAYER</h1>
+
+    <p>Are you sure you want to delete {{ player.first_name }} {{ player.last_name }}?</p>
+
+    <form method="POST">
+        {% csrf_token %}
+        <button type="submit">YES, DELETE</button>
+    </form>
+
+    <a href="{% url 'player' %}">CANCEL</a>
+
+</body>
+
+</html>

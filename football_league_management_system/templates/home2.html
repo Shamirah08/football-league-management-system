@@ -1,0 +1,55 @@
+{% extends './base.html' %}
+{% load static %}
+
+{% block extra_css %}
+
+<link rel="stylesheet" href="{% static 'home2.css' %}">
+
+{% endblock extra_css %}
+
+
+{% block content %}
+
+<header class="welcome">
+
+    <h1>Football League Management System</h1>
+
+    <p>
+        Welcome To The Football League Management System.
+        Click the links above to navigate through the System
+    </p>
+
+</header>
+
+<h2 class="title">SYSTEM DASHBOARD</h2>
+
+<div class="dashboard">
+
+    <a class="dashboard-card" href="{% url 'login' %}">
+    </a>
+
+</div>
+
+<form>
+
+    <li>
+        <label for="login">LOGIN</label><br><br>
+
+        <label for="home">HOME</label><br><br>
+
+        <label for="club">CLUB</label><br><br>
+
+        <label for="player">PLAYER</label><br><br>
+
+        <label for="season">SEASON</label><br><br>
+
+        <label for="fixture">FIXTURE</label><br><br>
+
+        <label for="results">RESULTS</label><br><br>
+
+        <label for="stat">STATISTICS</label><br><br>
+    </li>
+
+</form>
+
+{% endblock content %}
