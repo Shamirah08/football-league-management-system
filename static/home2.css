@@ -3,9 +3,15 @@ body {
     font-family: 'Times New Roman', Times, serif;
 }
 
+h1 {
+    text-align: center;
+    color: black;
+
+}
+
 h2 {
     text-align: center;
-    color: blue;
+    color: red;
 }
 
 p {
