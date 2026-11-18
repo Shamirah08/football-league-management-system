@@ -19,13 +19,17 @@ h1 {
     border-radius: 2px;
 }
 
-.er_container {
-    width: 900px;
+.season_container {
+    background-color: white;
     border: 5px black solid;
-    border-radius: 2px;
-    background-color: blueviolet;
+    width: 800px;
+    max-width: 95%;
+    box-sizing: border-box;
+    margin: 20px auto;
+    border-radius: 5px;
     padding: 5px;
 }
+
 
 input {
     border: 2px black solid;
