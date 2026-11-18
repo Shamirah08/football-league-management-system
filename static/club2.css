@@ -63,3 +63,54 @@ td {
     border: 1px black solid;
     border-collapse: collapse;
 }
+
+
+/* ---------- Added for the JavaScript search box and table ---------- */
+
+/* Search box: matches the form inputs */
+.search-label {
+    display: block;
+    margin: 20px 30px 6px;
+}
+
+.search-box {
+    display: block;
+    box-sizing: border-box;
+    margin: 0 30px 30px;
+    width: 80%;
+    height: 40px;
+    padding: 0 10px;
+    border: 2px black solid;
+    border-radius: 5px;
+}
+
+/* Table: same column as the form */
+.wrap {
+    margin: 0 30px 10px;
+    overflow-x: auto;
+}
+
+.wrap table {
+    width: 100%;
+    margin: 0;
+}
+
+th,
+td {
+    padding: 8px 10px;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f5f5f5;
+}
+
+tbody tr:hover {
+    background-color: #e0fff4;
+}
+
+.no-results {
+    margin: 0 30px 10px;
+    color: red;
+    font-weight: bold;
+    text-align: center;
+}
