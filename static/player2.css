@@ -1,16 +1,17 @@
 body {
-    background-color: beige;
+    background-color: #eef2f7;
     font-family: 'Times New Roman', Times, serif;
 }
 
 h1 {
     text-align: center;
     color: black;
+    color: #1b5e20;
 }
 
 
 .player_container {
-    background-color: white;
+    background-color: #ffffff;
     border: 5px black solid;
     width: 800px;
     max-width: 95%;
