@@ -110,19 +110,42 @@
             submitBtn.textContent = "SAVING...";
         });
 
-        // 2. Add a search box above the table (created by JS, no HTML change needed)
+        // 2. Visible search box above the table
         const wrap = document.querySelector(".wrap");
+        const searchLabel = document.createElement("label");
+        searchLabel.textContent = "SEARCH CLUBS";
+        searchLabel.style.display = "block";
+        searchLabel.style.margin = "10px 0 4px";
+
         const search = document.createElement("input");
         search.type = "text";
-        search.placeholder = "Search clubs...";
-        search.style.marginBottom = "10px";
+        search.id = "clubSearch";
+        search.placeholder = "Type a club name...";
+        search.style.cssText =
+            "display:block; width:260px; padding:8px; margin-bottom:10px; " +
+            "border:2px solid #333; background:#fff; color:#000; font-size:16px;";
+
+        wrap.parentNode.insertBefore(searchLabel, wrap);
         wrap.parentNode.insertBefore(search, wrap);
+
+        // "No clubs found" message
+        const noResults = document.createElement("p");
+        noResults.textContent = "No clubs found.";
+        noResults.style.display = "none";
+        noResults.style.color = "red";
+        wrap.parentNode.insertBefore(noResults, wrap.nextSibling);
 
         search.addEventListener("input", function () {
             const term = search.value.trim().toLowerCase();
+            let visible = 0;
+
             tbody.querySelectorAll("tr").forEach(function (row) {
-                row.style.display = row.textContent.toLowerCase().includes(term) ? "" : "none";
+                const match = row.textContent.toLowerCase().includes(term);
+                row.style.display = match ? "" : "none";
+                if (match) visible++;
             });
+
+            noResults.style.display = visible === 0 ? "block" : "none";
         });
     });
 </script>
