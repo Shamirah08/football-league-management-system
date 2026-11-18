@@ -50,9 +50,11 @@ label {
     padding: 5px;
 }
 
-button {
+button[type="submit"] {
     background-color: #66bb6a;
     border: 2px solid black;
     border-radius: 3px;
     text-align: center;
+    display: block;
+    margin: 20px auto;
 }
