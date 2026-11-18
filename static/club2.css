@@ -1,5 +1,5 @@
 body {
-    background-color: beige;
+    background-color: #eef2f7;
     font-family: 'Times New Roman', Times, serif;
 }
 
@@ -9,7 +9,7 @@ h1 {
 }
 
 .club_container {
-    background-color: white;
+    background-color: #ffffff;
     border: 5px black solid;
     width: 800px;
     max-width: 95%;
@@ -50,8 +50,7 @@ button {
     padding: 10px;
     font-weight: bold;
     cursor: pointer;
-    background-color: aquamarine;
-
+    background-color: #66bb6a
 }
 
 table {
@@ -61,7 +60,7 @@ table {
 
 th {
     text-align: left;
-    background-color: aquamarine;
+    background-color: #66bb6a
 }
 
 table,
