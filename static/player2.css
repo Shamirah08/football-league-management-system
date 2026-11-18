@@ -44,13 +44,12 @@ button {
     padding: 10px;
     font-weight: bold;
     cursor: pointer;
-    background-color: #2e7d32;
-
+    background-color: #66bb6a
 }
 
 table {
     margin: auto;
-    width: 600px;
+    width: 800px;
 }
 
 th {
