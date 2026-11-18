@@ -18,10 +18,19 @@
 
         <label>LAST NAME</label><br>
         <input type="text" name="last_name" value="{{ player.last_name }}" required><br><br>
+
         <label>GENDER</label><br>
         <select name="gender" required>
             <option value="M">Male</option>
             <option value="F">Female</option>
+        </select><br><br>
+
+        <label>CLUB</label><br>
+        <select name="club" required>
+            <option value="">Select Club</option>
+            {% for club in clubs %}
+            <option value="{{ club.id }}">{{ club.club_name }}</option>
+            {% endfor %}
         </select><br><br>
 
         <label>POSITION</label><br>
@@ -35,6 +44,8 @@
 
         <button type="submit">UPDATE PLAYER</button>
     </form>
+
+    <br>
 
     <a href="{% url 'player' %}">CANCEL</a>
 

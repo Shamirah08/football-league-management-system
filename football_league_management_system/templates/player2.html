@@ -28,6 +28,14 @@
             <option value="F">Female</option>
         </select><br><br>
 
+        <label for="club">CLUB</label><br>
+        <select name="club" id="club" required>
+            <option value="">Select Club</option>
+            {% for club in clubs %}
+            <option value="{{ club.id }}">{{ club.club_name }}</option>
+            {% endfor %}
+        </select><br><br>
+
         <label for="position">POSITION</label><br>
         <input type="text" id="position" name="position" placeholder="Enter Position" required><br><br>
 
@@ -48,6 +56,8 @@
                 <tr>
                     <th>First_Name</th>
                     <th>last_Name</th>
+                    <th>Gender</th>
+                    <th>Club</th>
                     <th>Birth_year</th>
                     <th>Position</th>
                     <th>SNum</th>
@@ -61,6 +71,8 @@
                 <tr>
                     <td>{{ player.first_name }}</td>
                     <td>{{ player.last_name }}</td>
+                    <td>{{ player.get_gender_display }}</td>
+                    <td>{{ player.club.club_name|default:"Not assigned" }}</td>
                     <td>{{ player.birth_year }}</td>
                     <td>{{ player.position }}</td>
                     <td>{{ player.shirt_number }}</td>
@@ -73,7 +85,7 @@
                 </tr>
                 {% empty %}
                 <tr>
-                    <td colspan="7">No players registered yet.</td>
+                    <td colspan="9">No players registered yet.</td>
                 </tr>
                 {% endfor %}
             </tbody>

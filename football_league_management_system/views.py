@@ -1,11 +1,10 @@
-from django.shortcuts import render
 
-
-from django.shortcuts import render,redirect
+from django.shortcuts import render, redirect
 from django.utils import timezone
-from .models import Club,Player,Season,Fixture,Results,Statistics
-from django.contrib.auth import authenticate, login,logout
+from .models import Club, Player, Season, Fixture, Results, Statistics
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+
 
 def login_page(request):
     if request.method == 'POST':
@@ -24,14 +23,19 @@ def login_page(request):
 
     return render(request, 'login2.html')
 
+
 def logout_page(request):
     if request.method == 'POST':
         logout(request)
     return redirect('login')
 
+
 @login_required(login_url='login')
 def home_page(request):
     return render(request, 'home2.html')
+
+
+# CLUB
 
 @login_required(login_url='login')
 def club_page(request):
@@ -49,8 +53,12 @@ def club_page(request):
             capacity=capacity,
             manager=manager
         )
+
+        return redirect('club')
+
     clubs = Club.objects.all()
-    return render(request, 'club2.html',{'clubs': clubs})
+    return render(request, 'club2.html', {'clubs': clubs})
+
 
 @login_required(login_url='login')
 def edit_club(request, club_id):
@@ -68,6 +76,7 @@ def edit_club(request, club_id):
 
     return render(request, 'edit_club.html', {'club': club})
 
+
 @login_required(login_url='login')
 def delete_club(request, club_id):
     club = Club.objects.get(id=club_id)
@@ -79,12 +88,15 @@ def delete_club(request, club_id):
     return render(request, 'delete_club.html', {'club': club})
 
 
+# PLAYER
+
 @login_required(login_url='login')
 def player_page(request):
     if request.method == 'POST':
         first_name = request.POST.get('first_name')
         last_name = request.POST.get('last_name')
         gender = request.POST.get('gender')
+        club_id = request.POST.get('club')
         position = request.POST.get('position')
         shirt_number = request.POST.get('shirt_number')
         birth_year = request.POST.get('birth_year')
@@ -93,24 +105,32 @@ def player_page(request):
             first_name=first_name,
             last_name=last_name,
             gender=gender,
+            club_id=club_id or None,
             position=position,
             shirt_number=shirt_number,
             birth_year=birth_year
         )
-        return redirect('player')
-    players = Player.objects.all()
 
-    return render(request, 'player2.html', {'players': players})
+        return redirect('player')
+
+    players = Player.objects.all()
+    clubs = Club.objects.all()
+
+    return render(request, 'player2.html', {
+        'players': players,
+        'clubs': clubs
+    })
+
 
 @login_required(login_url='login')
 def edit_player(request, player_id):
-
     player = Player.objects.get(id=player_id)
 
     if request.method == 'POST':
         player.first_name = request.POST.get('first_name')
         player.last_name = request.POST.get('last_name')
         player.gender = request.POST.get('gender')
+        player.club_id = request.POST.get('club') or None
         player.position = request.POST.get('position')
         player.shirt_number = request.POST.get('shirt_number')
         player.birth_year = request.POST.get('birth_year')
@@ -118,7 +138,16 @@ def edit_player(request, player_id):
         player.save()
         return redirect('player')
 
-    return render(request, 'edit_player.html', {'player': player})
+    clubs = Club.objects.all()
+
+    return render(request, 'edit_player.html', {
+        'player': player,
+        'clubs': clubs,
+        'is_male': player.gender == 'M',
+        'is_female': player.gender == 'F',
+    })
+
+
 
 @login_required(login_url='login')
 def delete_player(request, player_id):
@@ -130,11 +159,15 @@ def delete_player(request, player_id):
 
     return render(request, 'delete_player.html', {'player': player})
 
+
+# SEASON
+
 @login_required(login_url='login')
 def season_page(request):
     if request.method == 'POST':
         start_date = request.POST.get('start_date')
         end_date = request.POST.get('end_date')
+
         print(request.POST)
         print("START DATE:", start_date)
         print("END DATE:", end_date)
@@ -153,6 +186,7 @@ def season_page(request):
         'today': timezone.now().date()
     })
 
+
 @login_required(login_url='login')
 def edit_season(request, season_id):
     season = Season.objects.get(id=season_id)
@@ -162,12 +196,12 @@ def edit_season(request, season_id):
         season.end_date = request.POST.get('end_date')
 
         season.save()
-
         return redirect('season')
 
     return render(request, 'edit_season.html', {
         'season': season
     })
+
 
 @login_required(login_url='login')
 def delete_season(request, season_id):
@@ -182,9 +216,10 @@ def delete_season(request, season_id):
     })
 
 
+# MATCH FIXTURE
+
 @login_required(login_url='login')
 def matchfixture_page(request):
-
     if request.method == 'POST':
         home_club = request.POST.get('home_club')
         away_club = request.POST.get('away_club')
@@ -210,9 +245,9 @@ def matchfixture_page(request):
         'fixtures': fixtures
     })
 
+
 @login_required(login_url='login')
 def edit_fixture(request, fixture_id):
-
     fixture = Fixture.objects.get(id=fixture_id)
 
     if request.method == 'POST':
@@ -224,16 +259,15 @@ def edit_fixture(request, fixture_id):
         fixture.status = request.POST.get('status')
 
         fixture.save()
-
         return redirect('matchfixture')
 
     return render(request, 'edit_fixture.html', {
         'fixture': fixture
     })
 
+
 @login_required(login_url='login')
 def delete_fixture(request, fixture_id):
-
     fixture = Fixture.objects.get(id=fixture_id)
 
     if request.method == 'POST':
@@ -245,14 +279,16 @@ def delete_fixture(request, fixture_id):
     })
 
 
+# RESULTS
+
 @login_required(login_url='login')
 def results_page(request):
-
     if request.method == 'POST':
         fixture_id = request.POST.get('fixture')
         season_id = request.POST.get('season')
         goals_scored = request.POST.get('goals_scored')
         goals_conceded = request.POST.get('goals_conceded')
+
         Results.objects.create(
             fixture_id=fixture_id,
             season_id=season_id,
@@ -261,8 +297,8 @@ def results_page(request):
         )
 
         return redirect('results')
-    results = Results.objects.all()
 
+    results = Results.objects.all()
     fixtures = Fixture.objects.all()
     seasons = Season.objects.all()
 
@@ -271,6 +307,7 @@ def results_page(request):
         'fixtures': fixtures,
         'seasons': seasons
     })
+
 
 @login_required(login_url='login')
 def edit_results(request, result_id):
@@ -283,7 +320,6 @@ def edit_results(request, result_id):
         result.goals_conceded = request.POST.get('goals_conceded')
 
         result.save()
-
         return redirect('results')
 
     fixtures = Fixture.objects.all()
@@ -294,6 +330,7 @@ def edit_results(request, result_id):
         'fixtures': fixtures,
         'seasons': seasons
     })
+
 
 @login_required(login_url='login')
 def delete_result(request, result_id):
@@ -307,9 +344,11 @@ def delete_result(request, result_id):
         'result': result
     })
 
+
+# STATISTICS
+
 @login_required(login_url='login')
 def statistics_page(request):
-
     if request.method == 'POST':
         club_id = request.POST.get('club')
         season_id = request.POST.get('season')
@@ -343,9 +382,9 @@ def statistics_page(request):
         'results': results
     })
 
+
 @login_required(login_url='login')
 def edit_statistics(request, statistics_id):
-
     statistic = Statistics.objects.get(id=statistics_id)
 
     if request.method == 'POST':
@@ -358,7 +397,6 @@ def edit_statistics(request, statistics_id):
         statistic.possession = request.POST.get('possession')
 
         statistic.save()
-
         return redirect('statistics')
 
     clubs = Club.objects.all()
@@ -372,9 +410,9 @@ def edit_statistics(request, statistics_id):
         'results': results
     })
 
+
 @login_required(login_url='login')
 def delete_statistics(request, statistics_id):
-
     statistic = Statistics.objects.get(id=statistics_id)
 
     if request.method == 'POST':
@@ -384,4 +422,3 @@ def delete_statistics(request, statistics_id):
     return render(request, 'delete_statistics.html', {
         'statistic': statistic
     })
-
