@@ -70,4 +70,61 @@
     </div>
 </div>
 
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const form = document.getElementById("clubForm");
+        const tbody = document.getElementById("clubody");
+        const submitBtn = form.querySelector("button[type='submit']");
+
+        // 1. Validate the form before it is sent to Django
+        form.addEventListener("submit", function (e) {
+            const name = document.getElementById("cname").value.trim();
+            const nick = document.getElementById("nname").value.trim();
+            const stadium = document.getElementById("stadium").value.trim();
+            const manager = document.getElementById("manager").value.trim();
+            const capacity = parseInt(document.getElementById("capacity").value, 10);
+
+            if (!name || !nick || !stadium || !manager) {
+                alert("Please fill in all fields (spaces only are not allowed).");
+                e.preventDefault();
+                return;
+            }
+
+            if (isNaN(capacity) || capacity <= 0) {
+                alert("Capacity must be a number greater than 0.");
+                e.preventDefault();
+                return;
+            }
+
+            // Stop duplicate club names (compares with the table, ignoring case)
+            const existing = Array.from(tbody.querySelectorAll("tr td:first-child"))
+                .map(td => td.textContent.trim().toLowerCase());
+            if (existing.includes(name.toLowerCase())) {
+                alert("A club named '" + name + "' already exists.");
+                e.preventDefault();
+                return;
+            }
+
+            // Prevent double submission
+            submitBtn.disabled = true;
+            submitBtn.textContent = "SAVING...";
+        });
+
+        // 2. Add a search box above the table (created by JS, no HTML change needed)
+        const wrap = document.querySelector(".wrap");
+        const search = document.createElement("input");
+        search.type = "text";
+        search.placeholder = "Search clubs...";
+        search.style.marginBottom = "10px";
+        wrap.parentNode.insertBefore(search, wrap);
+
+        search.addEventListener("input", function () {
+            const term = search.value.trim().toLowerCase();
+            tbody.querySelectorAll("tr").forEach(function (row) {
+                row.style.display = row.textContent.toLowerCase().includes(term) ? "" : "none";
+            });
+        });
+    });
+</script>
+
 {% endblock content %}
