@@ -1,22 +1,23 @@
 body {
-    background-color: beige;
-    font-family: 'Times New Roman', Times, serif;
+    background-color: white font-family: 'Times New Roman', Times, serif;
 
 }
 
 h1 {
     text-align: center;
+    color: black;
 
 }
 
 .statistics_container {
-    border: 2px black solid;
-    border-radius: 5px;
+    background-color: #ffffff;
+    border: 5px black solid;
     width: 800px;
-    background-color: white;
-    height: auto;
+    max-width: 95%;
+    box-sizing: border-box;
+    margin: 20px auto;
+    border-radius: 5px;
     padding: 5px;
-
 }
 
 input {
@@ -32,19 +33,19 @@ label {
 }
 
 button {
-    background-color: cyan;
+    background-color: #66bb6a;
     border: 2px solid black;
     border-radius: 3px;
 }
 
 table {
-    width: 600px;
+    width: 750px;
     margin: auto;
 }
 
 th {
     text-align: left;
-    background-color: aquamarine;
+    background-color: #66bb6a;
 }
 
 table,
