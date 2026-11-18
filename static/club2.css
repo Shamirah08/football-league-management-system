@@ -25,6 +25,11 @@ form {
     text-align: center;
 }
 
+form label {
+    display: block;
+    text-align: left;
+}
+
 input {
     height: 40px;
     width: 80%;
