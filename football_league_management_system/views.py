@@ -1,4 +1,3 @@
-
 from django.shortcuts import render, redirect
 from django.utils import timezone
 from .models import Club, Player, Season, Fixture, Results, Statistics
@@ -32,7 +31,14 @@ def logout_page(request):
 
 @login_required(login_url='login')
 def home_page(request):
-    return render(request, 'home2.html')
+    return render(request, 'home2.html', {
+        'club_count': Club.objects.count(),
+        'player_count': Player.objects.count(),
+        'season_count': Season.objects.count(),
+        'fixture_count': Fixture.objects.count(),
+        'result_count': Results.objects.count(),
+        'statistics_count': Statistics.objects.count(),
+    })
 
 
 # CLUB
